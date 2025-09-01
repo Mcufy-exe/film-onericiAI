@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>🎬 Erdem AI Film Önerici</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #1f1f2e, #2c2c3f);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    input, button {
+      padding: 12px 20px;
+      font-size: 16px;
+      margin: 10px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input {
+      width: 250px;
+      background-color: #2e2e40;
+      color: #fff;
+    }
+
+    button {
+      background-color: #ff4081;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #ff5c99;
+    }
+
+    #sonuc {
+      margin-top: 30px;
+      font-size: 18px;
+      white-space: pre-line;
+      max-width: 600px;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .footer {
+      margin-top: 50px;
+      font-size: 14px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎬 AI Film Önerici</h1>
+  <input type="text" id="tur1" placeholder="1. Tür (ör: dram)">
+  <input type="text" id="tur2" placeholder="2. Tür (opsiyonel)">
+  <button onclick="filmOner()">✨ Öneri Al</button>
+  <div id="sonuc">🎥 Film önerileri burada görünecek...</div>
+  <div class="footer">Made with ❤️ by Erdem</div>
+
+  <script>
+    const filmVerisi = {
+      dram: ["The Pursuit of Happyness", "Forrest Gump", "A Beautiful Mind", "The Green Mile", "Manchester by the Sea"],
+      bilimkurgu: ["Interstellar", "Ex Machina", "Blade Runner 2049", "Arrival", "The Matrix"],
+      romantik: ["La La Land", "Her", "Pride & Prejudice", "Before Sunrise", "The Notebook"],
+      aksiyon: ["Mad Max: Fury Road", "John Wick", "Inception", "Gladiator", "The Dark Knight"],
+      komedi: ["The Grand Budapest Hotel", "Superbad", "The Intouchables", "Jojo Rabbit", "The Nice Guys"],
+      korku: ["Get Out", "A Quiet Place", "The Conjuring", "It Follows", "Midsommar"],
+      animasyon: ["Soul", "Coco", "Inside Out", "Up", "Spider-Man: Into the Spider-Verse"]
+    };
+
+    function filmOner() {
+      const tur1 = document.getElementById("tur1").value.trim().toLowerCase();
+      const tur2 = document.getElementById("tur2").value.trim().toLowerCase();
+      let sonuc = "🎥 AI Önerisi:\n\n";
+
+      const secilenler = [];
+
+      if (filmVerisi[tur1]) secilenler.push(...filmVerisi[tur1]);
+      if (filmVerisi[tur2] && tur2 !== tur1) secilenler.push(...filmVerisi[tur2]);
+
+      if (secilenler.length === 0) {
+        sonuc += "Üzgünüm, bu türde öneri veremiyorum 😢 Lütfen geçerli türler gir (ör: dram, aksiyon, komedi...)";
+      } else {
+        const rastgele = secilenler.sort(() => 0.5 - Math.random()).slice(0, 3);
+        sonuc += rastgele.map((film, i) => `${i + 1}. ${film}`).join("\n");
+      }
+
+      document.getElementById("sonuc").innerText = sonuc;
+    }
+  </script>
+</body>
+</html>
