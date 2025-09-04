@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Film Öneri Sitesi</title>
   <style>
     body {
@@ -24,8 +24,13 @@
     }
 
     @keyframes wave {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
     }
 
     .selector {
@@ -52,7 +57,7 @@
     select:focus {
       outline: none;
       box-shadow: 0 0 10px #e91e63;
-      background-color: rgba(255,255,255,0.3);
+      background-color: rgba(255, 255, 255, 0.3);
     }
 
     button {
@@ -78,7 +83,7 @@
     }
 
     .film {
-      background: rgba(255,255,255,0.05);
+      background: rgba(255, 255, 255, 0.05);
       padding: 15px;
       margin-bottom: 10px;
       border-radius: 10px;
@@ -90,8 +95,14 @@
     }
 
     @keyframes fadeScale {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     .imdb {
@@ -109,8 +120,53 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* --- Responsive düzenlemeler --- */
+    @media (max-width: 600px) {
+      body {
+        padding: 20px 10px;
+      }
+
+      h1 {
+        font-size: 1.8em;
+      }
+
+      .selector {
+        gap: 15px;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      select,
+      button {
+        width: 100%;
+        min-width: unset;
+        font-size: 1em;
+      }
+
+      .results {
+        max-width: 100%;
+        padding: 0 10px;
+      }
+
+      .film {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .imdb {
+        margin-left: 0;
+        margin-top: 8px;
+      }
     }
   </style>
 </head>
@@ -158,86 +214,92 @@
   <div class="results" id="results"></div>
 
   <footer>
-    byErdem<br>
+    made with by Erdem<br />
     📧 <a href="mailto:mcufy07@outlook.com" style="color:#ffd700;">mcufy07@outlook.com</a>
-    <body> <style>
-  /* Parlak noktaların stil ayarları */
-  .sparkle {
-    position: fixed;
-    width: 6px;
-    height: 6px;
-    background: radial-gradient(circle, #fff, rgba(255,255,255,0));
-    opacity: 0.8;
-    border-radius: 50%;
-    pointer-events: none;
-    filter: drop-shadow(0 0 5px #fff);
-    animation-timing-function: linear;
-  }
-</style>
-
-<script>
-  (() => {
-    const sparkleCount = 30;
-    const sparkles = [];
-    const containerHeight = window.innerHeight;
-    const maxAccumulation = 100; // Birikme maksimum yüksekliği
-
-    // Her bir sparkle için obje oluştur
-    for (let i = 0; i < sparkleCount; i++) {
-      const sparkle = document.createElement('div');
-      sparkle.className = 'sparkle';
-      document.body.appendChild(sparkle);
-      sparkles.push({
-        el: sparkle,
-        x: Math.random() * 300, // İlk x konumu (0-20px sol veya sağdan)
-        y: Math.random() * containerHeight * -1, // Ekranın yukarısından başlat
-        side: i % 2 === 0 ? 'left' : 'right', // Sağ veya sol
-        speed: 0.5 + Math.random() * 1, // Aşağı düşme hızı
-        accumulation: 0 // Birikme miktarı
-      });
-    }
-
-    function animate() {
-      sparkles.forEach(sparkle => {
-        // Y pozisyonunu arttır (aşağıya düş)
-        sparkle.y += sparkle.speed;
-
-        // Eğer aşağıdaysa, birikme kısmı
-        if (sparkle.y >= containerHeight - sparkle.accumulation) {
-          sparkle.accumulation += 0.3; // Birikme artışı
-          if (sparkle.accumulation >= maxAccumulation) {
-            sparkle.accumulation = 0;
-            sparkle.y = Math.random() * containerHeight * -1; // Yukarıdan yeniden başla
-            sparkle.x = Math.random() * 10; // X pozisyonunu sıfırla
-          }
-        }
-
-        // Sparklenin yatay konumunu belirle
-        let horizontalPos = sparkle.side === 'left' ? sparkle.x : window.innerWidth - sparkle.x + 6;
-
-        sparkle.el.style.left = horizontalPos + 'px';
-        sparkle.el.style.top = sparkle.y + 'px';
-
-        // Opaklık birikme ile artar, ama sonra sıfırlanır
-        sparkle.el.style.opacity = 0.5 + (sparkle.accumulation / maxAccumulation) * 0.5;
-      });
-
-      requestAnimationFrame(animate);
-    }
-
-    animate();
-
-    // Sayfa boyutu değişirse ayarla
-    window.addEventListener('resize', () => {
-      const h = window.innerHeight;
-      sparkles.forEach(s => {
-        if (s.y > h) s.y = Math.random() * h * -1;
-      });
-    });
-  })();
-</script>
-</body>
   </footer>
+
+  <style>
+    /* Parlak noktaların stil ayarları */
+    .sparkle {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      background: radial-gradient(circle, #fff, rgba(255, 255, 255, 0));
+      opacity: 0.8;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: drop-shadow(0 0 5px #fff);
+      animation-timing-function: linear;
+    }
+  </style>
+
+  <script>
+    (() => {
+      const sparkleCount = 30;
+      const sparkles = [];
+      const containerHeight = window.innerHeight;
+      const maxAccumulation = 100; // Birikme maksimum yüksekliği
+
+      // Her bir sparkle için obje oluştur
+      for (let i = 0; i < sparkleCount; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        document.body.appendChild(sparkle);
+        sparkles.push({
+          el: sparkle,
+          x: Math.random() * 600, // İlk x konumu (0-20px sol veya sağdan)
+          y: Math.random() * containerHeight * -1, // Ekranın yukarısından başlat
+          side: i % 2 === 0 ? 'left' : 'right', // Sağ veya sol
+          speed: 0.5 + Math.random() * 1, // Aşağı düşme hızı
+          accumulation: 0, // Birikme miktarı
+        });
+      }
+
+      function animate() {
+        sparkles.forEach((sparkle) => {
+          // Y pozisyonunu arttır (aşağıya düş)
+          sparkle.y += sparkle.speed;
+
+          // Eğer aşağıdaysa, birikme kısmı
+          if (sparkle.y >= containerHeight - sparkle.accumulation) {
+            sparkle.accumulation += 0.3; // Birikme artışı
+            if (sparkle.accumulation >= maxAccumulation) {
+              sparkle.accumulation = 0;
+              sparkle.y = Math.random() * containerHeight * -1; // Yukarıdan yeniden başla
+              sparkle.x = Math.random() * 10; // X pozisyonunu sıfırla
+            }
+          }
+
+          // Sparklenin yatay konumunu belirle
+          let horizontalPos =
+            sparkle.side === 'left'
+              ? sparkle.x
+              : window.innerWidth - sparkle.x + 6;
+
+          sparkle.el.style.left = horizontalPos + 'px';
+          sparkle.el.style.top = sparkle.y + 'px';
+
+          // Opaklık birikme ile artar, ama sonra sıfırlanır
+          sparkle.el.style.opacity =
+            0.5 + (sparkle.accumulation / maxAccumulation) * 0.5;
+        });
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+
+      // Sayfa boyutu değişirse ayarla
+      window.addEventListener('resize', () => {
+        const h = window.innerHeight;
+        sparkles.forEach((s) => {
+          if (s.y > h) s.y = Math.random() * h * -1;
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
 
   <script>
     // 💾 Tüm database buraya yerleştirildi
